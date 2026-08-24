@@ -20,10 +20,15 @@ const mainStory = document.getElementById('main-story');
 const heroIntro = document.getElementById('heroIntro');
 const madeForYou = document.getElementById('madeForYou');
 const openSurpriseBtn = document.getElementById('openSurpriseBtn');
+const nextStoryBtn = document.getElementById('nextStoryBtn');
+const readyOpenBtn = document.getElementById('readyOpenBtn');
+const galleryNextBtn = document.getElementById('galleryNextBtn');
+const celebrationRain = document.getElementById('celebrationRain');
+const welcomeRain = document.getElementById('welcomeRain');
 const photoGallery = document.getElementById('photoGallery');
 const bgMusic = document.getElementById('bgMusic');
 const arrow = document.getElementById('arrow');
-const arrowScene = document.getElementById('arrow-stage');
+const arrowScene = document.querySelector('.arrow-scene');
 const impactBursts = document.getElementById('impactBursts');
 const finalMessage = document.getElementById('finalMessage');
 
@@ -177,6 +182,8 @@ function startPasswordReveal() {
     }
 
     state.passwordUnlocked = true;
+    startMusicOnInteraction();
+    startWelcomeRain();
     setScreenVisibility(loginScreen, false);
     setScreenVisibility(curtainStage, true);
     curtainStage.classList.remove('reveal');
@@ -293,6 +300,7 @@ function showMainIntro() {
 
     setScreenVisibility(mainStory, true);
     document.body.classList.add('story-live');
+    document.body.classList.add('guided-start');
     window.scrollTo({ top: 0, behavior: 'auto' });
     heroIntro.scrollIntoView({ behavior: 'auto', block: 'start' });
 
@@ -318,6 +326,51 @@ function revealGalleryCards() {
     });
 }
 
+function startCelebrationRain() {
+    if (!celebrationRain) {
+        return;
+    }
+
+    celebrationRain.innerHTML = '';
+    const symbols = ['♥', '✿', '✦', '❤', '❀'];
+    for (let index = 0; index < 42; index += 1) {
+        const drop = document.createElement('span');
+        drop.className = 'rain-drop';
+        drop.textContent = symbols[index % symbols.length];
+        drop.style.left = `${Math.random() * 100}%`;
+        drop.style.animationDelay = `${Math.random() * 0.8}s`;
+        drop.style.animationDuration = `${2.4 + Math.random() * 1.6}s`;
+        celebrationRain.appendChild(drop);
+    }
+}
+
+function startWelcomeRain() {
+    if (!welcomeRain) {
+        return;
+    }
+
+    welcomeRain.innerHTML = '';
+    for (let index = 0; index < 48; index += 1) {
+        const drop = document.createElement('span');
+        drop.className = 'rain-drop welcome-drop';
+        drop.textContent = index % 2 === 0 ? '🩷' : '💗';
+        drop.style.left = `${Math.random() * 100}%`;
+        drop.style.animationDelay = `${Math.random() * 0.6}s`;
+        drop.style.animationDuration = `${2.5 + Math.random() * 1.3}s`;
+        welcomeRain.appendChild(drop);
+    }
+
+    document.body.classList.add('welcome-rain-active');
+    window.setTimeout(() => {
+        document.body.classList.remove('welcome-rain-active');
+    }, 4300);
+}
+
+function startGalleryRain() {
+    startWelcomeRain();
+    document.body.classList.add('gallery-rain-active');
+}
+
 function attachLoginEvents() {
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -332,17 +385,37 @@ function attachLoginEvents() {
 
     openSurpriseBtn.addEventListener('click', () => {
         startMusicOnInteraction();
-        revealGalleryCards();
-        document.body.classList.add('surprise-open');
         state.autoScrollOn = false;
-        madeForYou.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (!state.reducedMotion) {
-            window.setTimeout(() => {
-                state.autoScrollOn = true;
-                state.pauseUntil = 0;
-                startAutoScroll();
-            }, 1100);
+        document.body.classList.add('surprise-open', 'made-visible');
+        if (state.rafId) {
+            cancelAnimationFrame(state.rafId);
+            state.rafId = null;
         }
+        requestAnimationFrame(() => {
+            madeForYou.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    nextStoryBtn.addEventListener('click', () => {
+        document.body.classList.add('why-visible');
+        document.getElementById('whyMade').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    readyOpenBtn.addEventListener('click', () => {
+        startCelebrationRain();
+        document.body.classList.add('celebration-active');
+        window.setTimeout(() => {
+            document.body.classList.add('gallery-visible');
+            startGalleryRain();
+            revealGalleryCards();
+            document.getElementById('gallerySection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 2400);
+    });
+
+    galleryNextBtn.addEventListener('click', () => {
+        document.body.classList.remove('gallery-rain-active', 'welcome-rain-active');
+        document.body.classList.add('love-visible');
+        document.getElementById('loveSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 }
 
@@ -440,7 +513,7 @@ function buildArrowInteraction() {
     };
 
     const releaseArrow = () => {
-        if (state.arrowShot || !state.isDraggingArrow) {
+        if (state.arrowShot) {
             return;
         }
         state.isDraggingArrow = false;
@@ -485,11 +558,12 @@ function buildArrowInteraction() {
 
     arrow.addEventListener('pointermove', handlePointerMove);
     arrow.addEventListener('pointerup', releaseArrow);
-    arrow.addEventListener('pointerleave', () => {
-        if (state.isDraggingArrow) {
-            releaseArrow();
-        }
+    arrow.addEventListener('pointercancel', () => {
+        state.isDraggingArrow = false;
+        state.arrowPull = 0;
+        setArrowTransform();
     });
+    arrow.addEventListener('click', releaseArrow);
 
     arrow.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' || event.key === ' ') {

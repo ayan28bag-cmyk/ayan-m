@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="welcomeRain" class="celebration-rain welcome-rain" aria-hidden="true"></div>
     <div id="login-screen" class="screen active" aria-labelledby="login-title">
         <div class="login-backdrop"></div>
         <div class="login-card">
@@ -87,6 +88,7 @@
                 <h3>I made this little space just for you</h3>
             </div>
             <p class="story-text">I made this little world with a lot of care, just for your special day. Not because a website can capture how special you are, but because I wanted to create something that belongs only to you. Every little detail here was made with you in mind, and I hope it makes you smile.</p>
+            <button type="button" id="nextStoryBtn" class="primary-button story-next-button">Next</button>
         </section>
 
         <section class="story-block why-made" id="whyMade">
@@ -95,6 +97,11 @@
                 <h3>Because your day deserves a little extra</h3>
             </div>
             <p class="story-text">Honestly, I could have just sent you a birthday wish like everyone else. But I wanted to make something a little different. So I put together this tiny corner of the internet with photos, memories, animations and a lot of little details — all for your special day. I hope it makes you smile. That's all that matters. ✨</p>
+            <div class="ready-prompt" id="readyPrompt">
+                <h4>Are you ready?</h4>
+                <button type="button" id="readyOpenBtn" class="primary-button">Open</button>
+            </div>
+            <div id="celebrationRain" class="celebration-rain" aria-hidden="true"></div>
         </section>
 
         <section class="story-block gallery-section" id="gallerySection">
@@ -106,12 +113,13 @@
                 <span class="counter">Curated collection</span>
             </div>
             <div class="video-memory-wrap">
-                <video class="birthday-video" autoplay muted loop playsinline preload="auto" controls>
-                    <source src="videos/nadini.mp4" type="video/mp4">
+                <video class="birthday-video" autoplay muted loop playsinline preload="auto" controls poster="images/ayan/IMG-20260317-WA0001.jpg">
+                    <source src="videos/moments-worth-keeping.mp4" type="video/mp4">
                     Your browser does not support video playback.
                 </video>
             </div>
             <div class="gallery-grid" id="photoGallery" aria-label="Photo gallery"></div>
+            <button type="button" id="galleryNextBtn" class="primary-button story-next-button">Next</button>
         </section>
 
         <section class="story-block love-section" id="loveSection">
@@ -186,14 +194,15 @@
                 <h3 id="arrowTitle">A tiny wish sent straight to the heart.</h3>
             </div>
 
-            <div class="arrow-scene" aria-label="Arrow and heart scene">
+            <div class="arrow-scene" aria-label="Crossbow and heart scene">
                 <div class="tree-shape" aria-hidden="true"></div>
                 <div class="heart-destination" aria-hidden="true"></div>
                 <div class="glow-ring" aria-hidden="true"></div>
-                <div id="arrow" class="arrow" aria-label="Drag or click the bow and arrow" tabindex="0" role="button">
-                    <span class="arrow-head"></span>
-                    <span class="arrow-body"></span>
-                    <span class="arrow-tail"></span>
+                <div id="arrow" class="arrow crossbow" aria-label="Drag or click the crossbow to send a wish" tabindex="0" role="button">
+                    <span class="crossbow-stock"></span>
+                    <span class="crossbow-limb"></span>
+                    <span class="crossbow-string"></span>
+                    <span class="crossbow-bolt"></span>
                 </div>
                 <div id="impactBursts" class="impact-bursts" aria-hidden="true"></div>
             </div>
