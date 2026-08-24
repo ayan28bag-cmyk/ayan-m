@@ -23,6 +23,13 @@ const openSurpriseBtn = document.getElementById('openSurpriseBtn');
 const nextStoryBtn = document.getElementById('nextStoryBtn');
 const readyOpenBtn = document.getElementById('readyOpenBtn');
 const galleryNextBtn = document.getElementById('galleryNextBtn');
+const loveNextBtn = document.getElementById('loveNextBtn');
+const timelineNextBtn = document.getElementById('timelineNextBtn');
+const preWishPage = document.getElementById('preWishPage');
+const readyCheckPage = document.getElementById('readyCheckPage');
+const readyYesBtn = document.getElementById('readyYesBtn');
+const readyNoBtn = document.getElementById('readyNoBtn');
+const readyNextBtn = document.getElementById('readyNextBtn');
 const celebrationRain = document.getElementById('celebrationRain');
 const welcomeRain = document.getElementById('welcomeRain');
 const photoGallery = document.getElementById('photoGallery');
@@ -304,11 +311,7 @@ function showMainIntro() {
     window.scrollTo({ top: 0, behavior: 'auto' });
     heroIntro.scrollIntoView({ behavior: 'auto', block: 'start' });
 
-    window.setTimeout(() => {
-        state.autoScrollOn = true;
-        state.pauseUntil = 0;
-        startAutoScroll();
-    }, 1800);
+    state.autoScrollOn = false;
 }
 
 function startMusicOnInteraction() {
@@ -332,14 +335,14 @@ function startCelebrationRain() {
     }
 
     celebrationRain.innerHTML = '';
-    const symbols = ['♥', '✿', '✦', '❤', '❀'];
-    for (let index = 0; index < 42; index += 1) {
+    const symbols = ['🩷', '💗', '✨', '🌼', '🌻'];
+    for (let index = 0; index < 60; index += 1) {
         const drop = document.createElement('span');
-        drop.className = 'rain-drop';
+        drop.className = 'rain-drop celebration-drop';
         drop.textContent = symbols[index % symbols.length];
         drop.style.left = `${Math.random() * 100}%`;
         drop.style.animationDelay = `${Math.random() * 0.8}s`;
-        drop.style.animationDuration = `${2.4 + Math.random() * 1.6}s`;
+        drop.style.animationDuration = `${2.8 + Math.random() * 1.8}s`;
         celebrationRain.appendChild(drop);
     }
 }
@@ -403,8 +406,9 @@ function attachLoginEvents() {
 
     readyOpenBtn.addEventListener('click', () => {
         startCelebrationRain();
-        document.body.classList.add('celebration-active');
+        document.body.classList.add('celebration-active', 'ready-celebrating');
         window.setTimeout(() => {
+            document.body.classList.remove('ready-celebrating');
             document.body.classList.add('gallery-visible');
             startGalleryRain();
             revealGalleryCards();
@@ -414,8 +418,39 @@ function attachLoginEvents() {
 
     galleryNextBtn.addEventListener('click', () => {
         document.body.classList.remove('gallery-rain-active', 'welcome-rain-active');
+        document.body.classList.remove('gallery-visible');
         document.body.classList.add('love-visible');
         document.getElementById('loveSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    loveNextBtn.addEventListener('click', () => {
+        document.body.classList.remove('love-visible');
+        document.body.classList.add('timeline-visible');
+        document.getElementById('timelineSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    timelineNextBtn.addEventListener('click', () => {
+        document.body.classList.remove('timeline-visible');
+        document.body.classList.add('prewish-visible');
+        preWishPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    readyNextBtn.addEventListener('click', () => {
+        document.body.classList.remove('prewish-visible');
+        document.body.classList.add('ready-visible');
+        requestAnimationFrame(() => readyCheckPage.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    });
+
+    readyYesBtn.addEventListener('click', () => {
+        document.body.classList.remove('ready-visible');
+        document.body.classList.add('arrow-visible');
+        requestAnimationFrame(() => {
+            arrowScene.closest('.arrow-stage').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    readyNoBtn.addEventListener('click', () => {
+        readyNoBtn.textContent = 'Maybe in a moment';
     });
 }
 
@@ -525,9 +560,12 @@ function buildArrowInteraction() {
 
         setTimeout(() => {
             triggerHeartImpact();
+            arrowScene.closest('.arrow-stage').classList.add('final-exit');
             setTimeout(() => {
+                document.body.classList.remove('arrow-visible');
+                document.body.classList.add('final-visible');
                 finalMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 550);
+            }, 650);
         }, 700);
     };
 
