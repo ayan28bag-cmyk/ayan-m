@@ -1,7 +1,7 @@
 const APP_CONFIG = {
     birthdayName: 'Nandini',
     birthdayDate: '25th August',
-    password: '25august',
+    password: '25 August',
     musicPath: 'images/images/song.mp3',
     photoFolder: 'images/ayan',
     autoScrollSpeed: 18,
