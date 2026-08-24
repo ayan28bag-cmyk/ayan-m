@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3c1238">
+    <meta name="description" content="A cinematic birthday surprise for Nandini.">
+    <title>Happy Birthday, Nandini</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="login-screen" class="screen active" aria-labelledby="login-title">
+        <div class="login-backdrop"></div>
+        <div class="login-card">
+            <div class="lock-mark" aria-hidden="true">🎁</div>
+            <p class="eyebrow">Something special is waiting for you...</p>
+            <h1 id="login-title">Only one person gets to open this.</h1>
+            <p class="login-copy">A little world has been made for your birthday, and it only opens for the right passcode.</p>
+            <form id="login-form" novalidate>
+                <label for="passwordInput">Secret password</label>
+                <div class="password-row">
+                    <input id="passwordInput" type="password" autocomplete="off" aria-label="Password" placeholder="Enter the code" required>
+                    <button type="submit">Unlock Your Surprise ✨</button>
+                </div>
+                <p id="errorMsg" class="error-message" role="alert" aria-live="polite"></p>
+            </form>
+            <p class="hint">Made with a little more time than it probably needed.</p>
+        </div>
+    </div>
+
+    <div id="curtain-stage" class="screen curtain-stage" aria-live="polite" aria-hidden="true">
+        <div class="curtain-glow"></div>
+        <div class="curtain-panel left"></div>
+        <div class="curtain-panel right"></div>
+        <div class="curtain-copy">
+            <p class="eyebrow">A little surprise for you</p>
+            <h2>Nandini, this little surprise is for you... 🎈</h2>
+        </div>
+    </div>
+
+    <div id="balloon-scene" class="screen balloon-scene" aria-live="polite" aria-hidden="true">
+        <div class="scene-copy">
+            <p class="eyebrow">A moment of colour</p>
+            <h2>Little bits of joy, just for you.</h2>
+        </div>
+        <div id="balloon-field" class="balloon-field" aria-label="Colourful balloon field"></div>
+    </div>
+
+    <div id="heart-scene" class="screen heart-scene" aria-live="polite" aria-hidden="true">
+        <div class="heart-scene-inner">
+            <p class="eyebrow">a little something for you</p>
+            <svg class="heart-figure" viewBox="0 0 520 480" role="img" aria-label="Glowing heart">
+                <defs>
+                    <linearGradient id="heartGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffd6e8"/>
+                        <stop offset="50%" stop-color="#ff9ec7"/>
+                        <stop offset="100%" stop-color="#ff7ca6"/>
+                    </linearGradient>
+                    <radialGradient id="heartGlow" cx="50%" cy="35%" r="60%">
+                        <stop offset="0%" stop-color="#fff3f7" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="#ffb7d2" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle class="heart-glow" cx="260" cy="200" r="180"></circle>
+                <path class="heart-path" d="M258 400 C 100 310, 52 220, 72 150 C 90 90, 148 70, 190 97 C 214 112, 236 134, 258 165 C 279 135, 302 113, 325 97 C 369 70, 426 90, 446 150 C 470 220, 420 314, 258 400 Z"></path>
+            </svg>
+            <h2>Nandini ❤️</h2>
+        </div>
+    </div>
+
+    <div id="main-story" class="story-shell" aria-live="polite" aria-hidden="true">
+        <div class="story-background-blur"></div>
+
+        <header class="hero-intro" id="heroIntro">
+            <p class="eyebrow">TODAY IS ALL ABOUT YOU</p>
+            <h2>Happy Birthday, Nandini ❤️</h2>
+            <p class="lead">A little corner of the internet, made just for you.</p>
+            <button type="button" id="openSurpriseBtn" class="primary-button">Open Your Surprise ✨</button>
+        </header>
+
+        <section class="story-block made-for-you" id="madeForYou">
+            <div class="block-heading">
+                <p class="eyebrow">Made Just For You</p>
+                <h3>I made this little space just for you</h3>
+            </div>
+            <p class="story-text">I made this little world with a lot of care, just for your special day. Not because a website can capture how special you are, but because I wanted to create something that belongs only to you. Every little detail here was made with you in mind, and I hope it makes you smile.</p>
+        </section>
+
+        <section class="story-block why-made" id="whyMade">
+            <div class="block-heading">
+                <p class="eyebrow">Why I Made This</p>
+                <h3>Because your day deserves a little extra</h3>
+            </div>
+            <p class="story-text">Honestly, I could have just sent you a birthday wish like everyone else. But I wanted to make something a little different. So I put together this tiny corner of the internet with photos, memories, animations and a lot of little details — all for your special day. I hope it makes you smile. That's all that matters. ✨</p>
+        </section>
+
+        <section class="story-block gallery-section" id="gallerySection">
+            <div class="block-heading inline-heading">
+                <div>
+                    <p class="eyebrow">Photo memories</p>
+                    <h3>Moments worth keeping</h3>
+                </div>
+                <span class="counter">Curated collection</span>
+            </div>
+            <div class="video-memory-wrap">
+                <video class="birthday-video" autoplay muted loop playsinline preload="auto" controls>
+                    <source src="videos/nadini.mp4" type="video/mp4">
+                    Your browser does not support video playback.
+                </video>
+            </div>
+            <div class="gallery-grid" id="photoGallery" aria-label="Photo gallery"></div>
+        </section>
+
+        <section class="story-block love-section" id="loveSection">
+            <div class="block-heading">
+                <p class="eyebrow">Things I Love About You ❤️</p>
+                <h3>Little things that make you, you</h3>
+            </div>
+            <div class="love-cards">
+                <article class="love-card">
+                    <h4>Your Smile</h4>
+                    <p>It can make an ordinary day feel better.</p>
+                </article>
+                <article class="love-card">
+                    <h4>Your Heart</h4>
+                    <p>The kindness you carry is beautiful.</p>
+                </article>
+                <article class="love-card">
+                    <h4>Your Vibe</h4>
+                    <p>There's something about you that's simply unforgettable.</p>
+                </article>
+                <article class="love-card">
+                    <h4>Your Little Things</h4>
+                    <p>The tiny things you probably do not even notice.</p>
+                </article>
+                <article class="love-card">
+                    <h4>The Way You Are</h4>
+                    <p>No need to change anything. You are already enough.</p>
+                </article>
+                <article class="love-card">
+                    <h4>Your Light</h4>
+                    <p>You bring warmth to the moments around you.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="cinematic-quote" aria-label="Cinematic quote section">
+            <p>Some people become memories.<br>Some become a beautiful part of your story.</p>
+        </section>
+
+        <section class="story-block timeline-block" id="timelineSection">
+            <div class="block-heading">
+                <p class="eyebrow">Memory timeline</p>
+                <h3>Little chapters, big feelings</h3>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="year">A Beautiful Beginning</span>
+                    <p>One of those lovely starts that quietly turned into beautiful memories.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">Another Chapter</span>
+                    <p>More laughter, more light, more moments that felt easy and warm.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">Moments Worth Keeping</span>
+                    <p>Some days become the ones you carry with you long after they pass.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">Growing Beautifully</span>
+                    <p>Each chapter feels like a little glimpse of the person you are becoming.</p>
+                </div>
+                <div class="timeline-item">
+                    <span class="year">More Memories To Come</span>
+                    <p>And if there is one thing we know, it is that there will be many more.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="arrow-stage" class="arrow-stage" aria-labelledby="arrowTitle">
+            <div class="arrow-copy">
+                <p class="eyebrow">One last little surprise...</p>
+                <h3 id="arrowTitle">A tiny wish sent straight to the heart.</h3>
+            </div>
+
+            <div class="arrow-scene" aria-label="Arrow and heart scene">
+                <div class="tree-shape" aria-hidden="true"></div>
+                <div class="heart-destination" aria-hidden="true"></div>
+                <div class="glow-ring" aria-hidden="true"></div>
+                <div id="arrow" class="arrow" aria-label="Drag or click the bow and arrow" tabindex="0" role="button">
+                    <span class="arrow-head"></span>
+                    <span class="arrow-body"></span>
+                    <span class="arrow-tail"></span>
+                </div>
+                <div id="impactBursts" class="impact-bursts" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <section id="finalMessage" class="final-message" aria-labelledby="finalTitle">
+            <p class="eyebrow">One Last Thing…</p>
+            <h3 id="finalTitle">I made this with a lot of time, effort and care, just to make your 25th August a little more special.</h3>
+            <p>I hope you smile when you see this. Happy Birthday, Nandini. ❤️</p>
+            <span class="signature">Keep smiling. Always.</span>
+        </section>
+    </div>
+
+    <audio id="bgMusic" loop preload="auto" aria-hidden="true">
+        <source src="images/images/song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
